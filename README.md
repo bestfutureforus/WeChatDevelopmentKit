@@ -1,4 +1,4 @@
-Release分支,判断push指令
+Release分支
 
 我的项目
 
