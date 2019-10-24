@@ -1,52 +1,23 @@
 package me.chanjar.weixin.cp.bean;
 
-import me.chanjar.weixin.cp.util.json.WxCpGsonBuilder;
-
 import java.io.Serializable;
 
+import lombok.Data;
+import me.chanjar.weixin.cp.util.json.WxCpGsonBuilder;
+
 /**
- * 微信部门
+ * 微信部门.
  *
  * @author Daniel Qian
  */
+@Data
 public class WxCpDepart implements Serializable {
 
-  private Integer id;
+  private static final long serialVersionUID = -5028321625140879571L;
+  private Long id;
   private String name;
-  private Integer parentId;
-  private Integer order;
-
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public Integer getParentId() {
-    return parentId;
-  }
-
-  public void setParentId(Integer parentId) {
-    this.parentId = parentId;
-  }
-
-  public Integer getOrder() {
-    return order;
-  }
-
-  public void setOrder(Integer order) {
-    this.order = order;
-  }
+  private Long parentId;
+  private Long order;
 
   public static WxCpDepart fromJson(String json) {
     return WxCpGsonBuilder.create().fromJson(json, WxCpDepart.class);
@@ -56,13 +27,4 @@ public class WxCpDepart implements Serializable {
     return WxCpGsonBuilder.create().toJson(this);
   }
 
-  @Override
-  public String toString() {
-    return "WxCpDepart{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
-        ", parentId=" + parentId +
-        ", order=" + order +
-        '}';
-  }
 }

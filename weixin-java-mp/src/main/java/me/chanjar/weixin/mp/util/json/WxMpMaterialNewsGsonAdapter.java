@@ -1,20 +1,16 @@
-/*
- * KINGSTAR MEDIA SOLUTIONS Co.,LTD. Copyright c 2005-2013. All rights reserved.
- *
- * This source code is the property of KINGSTAR MEDIA SOLUTIONS LTD. It is intended
- * only for the use of KINGSTAR MEDIA application development. Reengineering, reproduction
- * arose from modification of the original source, or other redistribution of this source
- * is not permitted without written permission of the KINGSTAR MEDIA SOLUTIONS LTD.
- */
 package me.chanjar.weixin.mp.util.json;
 
 import com.google.gson.*;
-import me.chanjar.weixin.mp.bean.WxMpMaterialNews;
+import me.chanjar.weixin.common.util.json.GsonHelper;
+import me.chanjar.weixin.mp.bean.material.WxMpMaterialNews;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class WxMpMaterialNewsGsonAdapter implements JsonSerializer<WxMpMaterialNews>, JsonDeserializer<WxMpMaterialNews> {
 
+  @Override
   public JsonElement serialize(WxMpMaterialNews wxMpMaterialNews, Type typeOfSrc, JsonSerializationContext context) {
     JsonObject newsJson = new JsonObject();
 
@@ -25,9 +21,20 @@ public class WxMpMaterialNewsGsonAdapter implements JsonSerializer<WxMpMaterialN
     }
     newsJson.add("articles", articleJsonArray);
 
+    if (wxMpMaterialNews.getCreateTime() != null) {
+      newsJson.addProperty("create_time",
+        SimpleDateFormat.getDateTimeInstance().format(wxMpMaterialNews.getCreateTime()));
+    }
+
+    if (wxMpMaterialNews.getUpdateTime() != null) {
+      newsJson.addProperty("update_time",
+        SimpleDateFormat.getDateTimeInstance().format(wxMpMaterialNews.getUpdateTime()));
+    }
+
     return newsJson;
   }
 
+  @Override
   public WxMpMaterialNews deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
     WxMpMaterialNews wxMpMaterialNews = new WxMpMaterialNews();
     JsonObject json = jsonElement.getAsJsonObject();
@@ -39,6 +46,17 @@ public class WxMpMaterialNewsGsonAdapter implements JsonSerializer<WxMpMaterialN
         wxMpMaterialNews.addArticle(article);
       }
     }
+
+    if (json.get("create_time") != null && !json.get("create_time").isJsonNull()) {
+      Date createTime = new Date(GsonHelper.getAsLong(json.get("create_time"))* 1000);
+      wxMpMaterialNews.setCreateTime(createTime);
+    }
+
+    if (json.get("update_time") != null && !json.get("update_time").isJsonNull()) {
+      Date updateTime = new Date(GsonHelper.getAsLong(json.get("update_time"))* 1000);
+      wxMpMaterialNews.setUpdateTime(updateTime);
+    }
+
     return wxMpMaterialNews;
   }
 }

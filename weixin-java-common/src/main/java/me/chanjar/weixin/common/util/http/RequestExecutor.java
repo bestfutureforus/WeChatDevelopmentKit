@@ -2,32 +2,37 @@ package me.chanjar.weixin.common.util.http;
 
 import java.io.IOException;
 
-import org.apache.http.HttpHost;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-
-import me.chanjar.weixin.common.exception.WxErrorException;
+import me.chanjar.weixin.common.error.WxErrorException;
 
 /**
- * http请求执行器
+ * http请求执行器.
  *
  * @param <T> 返回值类型
  * @param <E> 请求参数类型
+ * @author Daniel Qian
  */
 public interface RequestExecutor<T, E> {
 
   /**
+   * 执行http请求.
    *
-   * @param httpclient 传入的httpClient
-   * @param httpProxy http代理对象，如果没有配置代理则为空
-   * @param uri       uri
-   * @param data      数据
-   * @return
-   * @throws WxErrorException
-   * @throws ClientProtocolException
-   * @throws IOException
+   * @param uri  uri
+   * @param data 数据
+   * @return 响应结果
+   * @throws WxErrorException 自定义异常
+   * @throws IOException      io异常
    */
-  public T execute(CloseableHttpClient httpclient, HttpHost httpProxy, String uri, E data) throws WxErrorException, ClientProtocolException, IOException;
+  T execute(String uri, E data) throws WxErrorException, IOException;
 
+
+  /**
+   * 执行http请求.
+   *
+   * @param uri      uri
+   * @param data     数据
+   * @param handler http响应处理器
+   * @throws WxErrorException 自定义异常
+   * @throws IOException      io异常
+   */
+  void execute(String uri, E data, ResponseHandler<T> handler) throws WxErrorException, IOException;
 }

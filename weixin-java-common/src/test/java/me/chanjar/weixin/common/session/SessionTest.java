@@ -1,8 +1,7 @@
 package me.chanjar.weixin.common.session;
 
-import org.testng.Assert;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.*;
+import org.testng.annotations.*;
 
 @Test
 public class SessionTest {
@@ -10,8 +9,8 @@ public class SessionTest {
   @DataProvider
   public Object[][] getSessionManager() {
 
-    return new Object[][] {
-        new Object[] { new StandardSessionManager() }
+    return new Object[][]{
+      new Object[]{new StandardSessionManager()}
     };
 
   }
@@ -81,7 +80,7 @@ public class SessionTest {
     InternalSession abc = ism.createSession("abc");
     abc.endAccess();
 
-    Thread.sleep(2000l);
+    Thread.sleep(2000);
     Assert.assertEquals(ism.getActiveSessions(), 0);
 
   }
@@ -100,13 +99,13 @@ public class SessionTest {
     abc.setMaxInactiveInterval(1);
     abc.endAccess();
 
-    Thread.sleep(2000l);
+    Thread.sleep(2000);
     Assert.assertEquals(ism.getActiveSessions(), 0);
 
   }
 
   @Test(dataProvider = "getSessionManager")
-  public void testMaxActive(WxSessionManager sessionManager) throws InterruptedException {
+  public void testMaxActive(WxSessionManager sessionManager) {
 
     InternalSessionManager ism = (InternalSessionManager) sessionManager;
     ism.setMaxActiveSessions(2);
@@ -118,7 +117,7 @@ public class SessionTest {
   }
 
   @Test(dataProvider = "getSessionManager", expectedExceptions = TooManyActiveSessionsException.class)
-  public void testMaxActive2(WxSessionManager sessionManager) throws InterruptedException {
+  public void testMaxActive2(WxSessionManager sessionManager) {
 
     InternalSessionManager ism = (InternalSessionManager) sessionManager;
     ism.setMaxActiveSessions(2);

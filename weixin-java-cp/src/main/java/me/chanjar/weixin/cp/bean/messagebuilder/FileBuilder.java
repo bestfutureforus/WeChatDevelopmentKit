@@ -8,14 +8,14 @@ import me.chanjar.weixin.cp.bean.WxCpMessage;
  * <pre>
  * 用法: WxCustomMessage m = WxCustomMessage.FILE().mediaId(...).toUser(...).build();
  * </pre>
- * @author Daniel Qian
  *
+ * @author Daniel Qian
  */
 public final class FileBuilder extends BaseBuilder<FileBuilder> {
   private String mediaId;
 
   public FileBuilder() {
-    this.msgType = WxConsts.CUSTOM_MSG_FILE;
+    this.msgType = WxConsts.KefuMsgType.FILE;
   }
 
   public FileBuilder mediaId(String media_id) {
@@ -23,6 +23,7 @@ public final class FileBuilder extends BaseBuilder<FileBuilder> {
     return this;
   }
 
+  @Override
   public WxCpMessage build() {
     WxCpMessage m = super.build();
     m.setMediaId(this.mediaId);

@@ -2,16 +2,19 @@ package me.chanjar.weixin.common.session;
 
 import java.util.Enumeration;
 
+/**
+ * @author Daniel Qian
+ */
 public interface WxSession {
 
-  public Object getAttribute(String name);
+  Object getAttribute(String name);
 
-  public Enumeration<String> getAttributeNames();
+  Enumeration<String> getAttributeNames();
 
-  public void setAttribute(String name, Object value);
+  void setAttribute(String name, Object value);
 
-  public void removeAttribute(String name);
+  void removeAttribute(String name);
 
-  public void invalidate();
+  void invalidate();
 
 }

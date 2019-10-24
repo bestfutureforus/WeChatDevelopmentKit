@@ -2,58 +2,31 @@ package me.chanjar.weixin.common.bean;
 
 import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
- * jspai signature
+ * jspai signature.
+ *
+ * @author Daniel Qian
  */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class WxJsapiSignature implements Serializable {
-  private String appid;
-  
-  private String noncestr;
+  private static final long serialVersionUID = -1116808193154384804L;
+
+  private String appId;
+
+  private String nonceStr;
 
   private long timestamp;
 
   private String url;
 
   private String signature;
-
-  public String getSignature() {
-    return signature;
-  }
-
-  public void setSignature(String signature) {
-    this.signature = signature;
-  }
-
-  public String getNoncestr() {
-    return noncestr;
-  }
-
-  public void setNoncestr(String noncestr) {
-    this.noncestr = noncestr;
-  }
-
-  public long getTimestamp() {
-    return timestamp;
-  }
-
-  public void setTimestamp(long timestamp) {
-    this.timestamp = timestamp;
-  }
-
-  public String getUrl() {
-    return url;
-  }
-
-  public void setUrl(String url) {
-    this.url = url;
-  }
-
-  public String getAppid() {
-	  return appid;
-  }
-
-  public void setAppid(String appid) {
-	  this.appid = appid;
-  }
 
 }
